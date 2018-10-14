@@ -52,12 +52,19 @@ geelongData <- st_read(geelongAddy, stringsAsFactors=F)
 #     return(b)
 # }
 
-# kmlDescriptionType <- function(x) {
-#     a <- readHTMLTable(x[1], as.data.frame = F)[[1]]
-#     return(a[[2]][2])
-# }
+# Extract road type from kml 'description' column, but only if it hasn't already happend (different dirvers).
+if ( ! "type" %in% names(geelongData) ) {
 
-# geelongData$type <- sapply(geelongData$Description,kmlDescriptionType)
+    kmlDescriptionType <- function(x) {
+        a <- readHTMLTable(x[1], as.data.frame = F)[[1]]
+        return(a[[2]][2])
+    }
+
+    geelongData$type <- sapply(geelongData$Description,kmlDescriptionType)
+    geelongData <- geelongData[,-2]
+    
+}
+
 # descriptionTab <- do.call("rbind",lapply(geelongData$Description,kmlDescriptionTable))
 # geelongData <- st_bind_cols(geelongData[,-2],descriptionTab)
 # descriptionTab$geometry <- geelongData$geometry
