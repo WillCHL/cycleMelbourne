@@ -23,6 +23,14 @@ p {
     font-size: 1.2em;
 }
 
+.footer {
+    background-color: #e5e5e5;
+    font-size: 0.9em;
+    padding: 4px;
+    text-align: center;
+    
+}
+
 #controls {
   /* Appearance */
   background-color: white;

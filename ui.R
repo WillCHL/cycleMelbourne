@@ -12,7 +12,7 @@ navbarPage("Melbourne Bicycle Paths", theme="styles.css",
        ),
        tabPanel("about",
                 h2("About"),
-                p("I'm relatively new to commuting on a bike and have recently moved house so I've been doing a lot of trip planning with several different web sites open to try and find the best and safest route. So with ", tags$a(href="https://www.bicyclenetwork.com.au/rides-and-events/ride2work/", "Ride2Work")," day fast approaching I thought I'd try and combine a few of those different data sources in one map. It's a little quick-and-dirty (which kinda hurts as a perfectionist) but it does the job."),
+                p("I'm relatively new to commuting on a bike and have recently moved house so I've been doing a lot of trip planning with several different web sites open to try and find the best and safest route. So with ", tags$a(href="https://www.bicyclenetwork.com.au/rides-and-events/ride2work/", "Ride2Work")," day fast approaching I thought I'd try and combine a few of those different data sources in one map. It's a little quick-and-dirty (which kinda hurts as a perfectionist) but it seems to do the job."),
                 p("I still have a few more things I'd like to implement on the app but I'm hoping it can help your ride already."),
                 h2("Data Source"),
                 p("I have done very little with the data except to filter out 'Proposed' bike routes and try and match up colours for the types of bike paths (where I can decipher the codes). All data is pulled directly from the data source so it is as up-to-date as possible."),
@@ -27,7 +27,13 @@ navbarPage("Melbourne Bicycle Paths", theme="styles.css",
                 h4("Maribyrnong City Council"),
                 p(tags$a(href="https://data.gov.au/dataset/bicycle-network-maribyrnong-city-council", "data")),
                 h4("Greater Geelong Bike Paths"),
-                p(tags$a(href="https://data.gov.au/dataset/7af9cf59-a4ea-47b2-8652-5e5eeed19611", "data"))
+                p(tags$a(href="https://data.gov.au/dataset/7af9cf59-a4ea-47b2-8652-5e5eeed19611", "data")),
+                hr(),
+                div(class = "footer",
+                    p(tags$a(href="http://mapsgraphs.blogspot.com/","Maps and Graphs"), " blog | ",
+                    tags$a(href="https://github.com/WillCHL/cycleMelbourne","Code on GitHub"))
+                )
+                
                 
        )
 )
