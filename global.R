@@ -84,7 +84,58 @@ geelongPal <- colorFactor(c("#1b9e77", "#d95f02","#e7298a"), domain=geelongData$
                           levels=c("OFRD","ONRD","TRNG"))
 
 
+# https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap
+# http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga
 # 
+# leaflet() %>% addTiles(urlTemplate = "https://mts1.google.com/vt/lyrs=s&hl=en&src=app&x={x}&y={y}&z={z}&s=G", attribution = 'Google')
+leaflet() %>% 
+    addTiles(urlTemplate = "http://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}&s=Ga", 
+             attribution = 'Google')
+
+leaflet() %>% 
+    addTiles(urlTemplate = "https://www.google.com/gen_204?atyp=i&zx=1539510398242&ogefn=si", 
+             attribution = 'Google')
+
+library(googleway)
+
+apiKey <- 'your_api_key'
+mapKey <- 'your_map_key'
+
+newYork <- google_geocode(address = "New York", key = "your_api_key")
+
+google_map(location = as.numeric(newYork$results$geometry$location), 
+           key = "your_api_key")
+
+google_map(key = "your_api_key", search_box = T) %>%
+    add_bicycling()
+
+library(htmltools)
+library(htmlwidgets)
+
+# 1: Tell htmlwidgets where to look for the script and stylesheets
+gLeafletPlugin <- htmlDependency("gLeaflet","1.9.0",
+                                 src = c(href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet-plugins/1.9.0/layer/tile/"),
+                                 script = "Google.js")
+
+registerPlugin <- function(map, plugin) {
+    map$dependencies <- c(map$dependencies, list(plugin))
+    map
+}
+
+leaflet() %>% 
+    setView(76.65, 12.32, zoom = 9) %>%
+    registerPlugin(gLeafletPlugin) %>%
+    # 3: Pass on custom JS logic: SECOND PLACE WHERE I AM STUCK
+    onRender("function(el, x) {
+             L.Google('TERRAIN').addTo(this);
+             }")
+
+add_bicycling <- function(map) {
+    invoke_method(map, 'add_bicycling')
+}
+# https://maps.googleapis.com/maps/api/js?key=your_api_key&libraries=BicyclingLayer
+
+
 # leaflet() %>%
 #     addProviderTiles(providers$CartoDB.Positron, group = "OSM Lite") %>%
 #     addPolylines(data=geelongData,
