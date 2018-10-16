@@ -10,6 +10,9 @@ function(input, output, session) {
                              options = providerTileOptions(apikey="2255133dae764e2ea27cb3a4a4c696e2")) %>%
             addProviderTiles(providers$CartoDB.Positron, group = "OSM Lite") %>%
             addTiles(group = "OSM") %>%
+            addWMSTiles(baseUrl=roadTRbase, layers='VMTRANS_TR_ROAD_BIKE_PATH', 
+                        group="Vicmap Transport Bike Paths",
+                        options=WMSTileOptions(format="image/png",transparent=TRUE)) %>%
             addEsriFeatureLayer(url=vicRoadsAddy,
                                 options=featureLayerOptions(where = "STATUS='Existing'",
                                                             style = JS("function(feature){
@@ -33,7 +36,7 @@ function(input, output, session) {
             addLayersControl(
                 baseGroups = c("OSM", "OSM Lite", "OSM Cycle Map"),
                 overlayGroups = c("VicRoads Bicycle Network", "City of Melb Bicycle Routes", 
-                                  "Maribyrnong Bike Network", "Geelong Bike Network"),
+                                  "Maribyrnong Bike Network", "Geelong Bike Network", "Vicmap Transport Bike Paths"),
                 options = layersControlOptions(collapsed = FALSE)) %>%
             addLegend("bottomright", pal = cityMelbPal, values = ~type,
                       group="City of Melb Bicycle Routes", data=cityMelbData,
@@ -49,7 +52,7 @@ function(input, output, session) {
                       title = "Geelong Bike Network", opacity = 1) %>%
             setView(lng = 144.92, lat = -37.8, zoom = 9) %>% 
             hideGroup(c("VicRoads Bicycle Network", "City of Melb Bicycle Routes",
-                        "Maribyrnong Bike Network", "Geelong Bike Network"))
+                        "Maribyrnong Bike Network", "Geelong Bike Network", "Vicmap Transport Bike Paths"))
             
     })
 }

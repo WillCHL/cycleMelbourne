@@ -45,6 +45,7 @@ geelongAddy <- "https://data.gov.au/dataset/7af9cf59-a4ea-47b2-8652-5e5eeed19611
 geelongData <- st_read(geelongAddy, stringsAsFactors=F)
 # geelongData <- st_read(geelongAddy, layer = "SHAPEFILE")
 
+# Extract kml Description field data
 # kmlDescriptionTable <- function(x) {
 #     a <- readHTMLTable(x[1], as.data.frame = F)[[1]]
 #     b <- as.data.frame(t(a[[2]][1:2]),stringsAsFactors=F)
@@ -65,28 +66,28 @@ if ( ! "type" %in% names(geelongData) ) {
     
 }
 
-# descriptionTab <- do.call("rbind",lapply(geelongData$Description,kmlDescriptionTable))
-# geelongData <- st_bind_cols(geelongData[,-2],descriptionTab)
-# descriptionTab$geometry <- geelongData$geometry
-# geelongData <- st_as_sf(descriptionTab)
-
-# geelongData <- cbind(descriptionTab,geelongData$geometry)
-# geelongData <- st_as_sf(geelongData)
-
-# geelongData <- geelongData[,-2]
-# geelongData$type <- descriptionTab$type
-# geelongData$name <- descriptionTab$name
-
 geelongData <- geelongData[!grepl("P",geelongData$type),]
 geelongData <- st_zm(geelongData, drop = T, what = "ZM")
 
 geelongPal <- colorFactor(c("#1b9e77", "#d95f02","#e7298a"), domain=geelongData$type,
                           levels=c("OFRD","ONRD","TRNG"))
 
+# Get Vic Land TR_Road data and filter for bike trails (Type=)
+
+# Bicycle
+# https://services.land.vic.gov.au/catalogue/publicproxy/guest/dv_geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&WIDTH=512&HEIGHT=512&LAYERS=VMTRANS_TR_ROAD_BIKE_PATH&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A4283&BBOX=141%2C-39%2C150%2C-34
+# Meta: https://services.land.vic.gov.au/catalogue/metadata?anzlicId=ANZVI0803002595&publicId=guest&extractionProviderId=1#tab2
+
+
+# All Roads
+# roadTR <- "https://services.land.vic.gov.au/catalogue/publicproxy/guest/dv_geoserver/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&WIDTH=512&HEIGHT=512&LAYERS=VMTRANS_TR_ROAD_BIKE_PATH&STYLES=&FORMAT=image%2Fpng&SRS=EPSG%3A4283&BBOX=141%2C-39%2C150%2C-34"
+roadTRbase <- "https://services.land.vic.gov.au/catalogue/publicproxy/guest/dv_geoserver/wms"
 
 # 
 # leaflet() %>%
 #     addProviderTiles(providers$CartoDB.Positron, group = "OSM Lite") %>%
+#     addWMSTiles(baseUrl=roadTRbase, layers='VMTRANS_TR_ROAD_BIKE_PATH',
+#                 options=WMSTileOptions(format="image/png",transparent=TRUE)) %>%
 #     addPolylines(data=geelongData,
 #                  color = ~geelongPal(type), weight = 3, opacity=0.6) %>%
 #     addLegend("bottomright", pal = geelongPal, values = ~type,
