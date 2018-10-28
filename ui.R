@@ -14,7 +14,7 @@ navbarPage("Melbourne Bicycle Paths", theme="styles.css",
                 h2("About"),
                 p("I'm relatively new to bike commuting and have recently moved house so I've been doing a lot of trip planning recently.  
                   The problem is that to find a good (and safe) route I've had to have several different web sites/maps open at once to see all the relevant bike paths and lanes."),
-                p("With ", tags$a(href="https://www.bicyclenetwork.com.au/rides-and-events/ride2work/", "Ride2Work")," day fast approaching I thought I'd try and combine a few of those different data sources in one map. 
+                p("With ", tags$a(href="https://www.bicyclenetwork.com.au/rides-and-events/ride2work/", "Ride2Work")," day (2018) fast approaching I thought I'd try and combine a few of those different data sources in one map. 
                   It's a little quick-and-dirty (which kinda hurts as a perfectionist) but it seems to do the job."),
                 p("I still have a few more things I'd like to implement on the app but I'm hoping it can help your ride already."),
                 h2("Data Source"),
@@ -31,6 +31,9 @@ navbarPage("Melbourne Bicycle Paths", theme="styles.css",
                 p(tags$a(href="https://data.gov.au/dataset/bicycle-network-maribyrnong-city-council", "data")),
                 h4("Greater Geelong Bike Paths"),
                 p(tags$a(href="https://data.gov.au/dataset/7af9cf59-a4ea-47b2-8652-5e5eeed19611", "data")),
+                h4("Vicmap Transport Bike Paths"),
+                p("Unfortunately I'm not able to control the colours for path type and continue opertating fast enough at this stage but hopefully the data is still helpful."),
+                p(tags$a(href="https://www.data.vic.gov.au/data/dataset/vicmap-transport-bicycle-paths", "data")),
                 hr(),
                 div(class = "footer",
                     p(tags$a(href="http://mapsgraphs.blogspot.com/","Maps and Graphs"), " blog | ",
