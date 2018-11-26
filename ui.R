@@ -10,7 +10,7 @@ navbarPage("Melbourne Bicycle Paths", theme="styles.css",
                 
             )
        ),
-       tabPanel("about",
+       tabPanel("about | legend",
                 h2("About"),
                 p("I'm relatively new to bike commuting and have recently moved house so I've been doing a lot of trip planning recently.  
                   The problem is that to find a good (and safe) route I've had to have several different web sites/maps open at once to see all the relevant bike paths and lanes."),

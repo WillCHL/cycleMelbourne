@@ -1,11 +1,15 @@
 library(leaflet)
 library(leaflet.esri)
+library(leaflet.extras)
 
 function(input, output, session) {
     
     # Create the map
     output$map <- renderLeaflet({
         leaflet() %>%
+            addControlGPS(options = gpsOptions(position = "bottomleft", activate = TRUE, 
+                                                        autoCenter = TRUE, maxZoom = 17, 
+                                                        setView = TRUE)) %>%
             addProviderTiles(providers$Thunderforest.OpenCycleMap, group = "OSM Cycle Map",
                              options = providerTileOptions(apikey="2255133dae764e2ea27cb3a4a4c696e2")) %>%
             addProviderTiles(providers$CartoDB.Positron, group = "OSM Lite") %>%
